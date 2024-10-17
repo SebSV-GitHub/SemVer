@@ -1,0 +1,13 @@
+on: push
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+  run:
+    needs: [build]
+    uses: ./.github/workflows/main.yml
+    with:
+      SHA: ${{ needs.build.outputs.SHA }}
